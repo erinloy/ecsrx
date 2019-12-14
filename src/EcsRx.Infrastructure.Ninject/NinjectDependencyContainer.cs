@@ -84,7 +84,10 @@ namespace EcsRx.Infrastructure.Ninject
         public bool HasBinding(Type type, string name = null)
         {
             var applicableBindings = _kernel.GetBindings(type);
-             
+            
+            //Note: May be required for Ninject 4.x
+            //var applicableBindings = ((IReadOnlyKernel)_kernel).GetBindings(type);
+
             if(string.IsNullOrEmpty(name))
             { return applicableBindings.Any(); }
             
