@@ -8,7 +8,6 @@ using EcsRx.Executor.Handlers;
 using EcsRx.Extensions;
 using EcsRx.Groups;
 using EcsRx.MicroRx.Extensions;
-using EcsRx.Plugins.ReactiveSystems.Extensions;
 using EcsRx.Plugins.ReactiveSystems.Systems;
 using EcsRx.Systems;
 using EcsRx.Threading;
@@ -36,13 +35,13 @@ namespace EcsRx.Plugins.ReactiveSystems.Handlers
         {
             var affinities = system.GetGroupAffinities();
             var observableGroup = _entityCollectionManager.GetObservableGroup(system.Group, affinities);
-            var hasEntityPredicate = system.Group is IHasPredicate;
+            var groupPredicate = system.Group as IHasPredicate;
             var isExtendedSystem = system is IReactToGroupExSystem;
             var castSystem = (IReactToGroupSystem)system;
             var reactObservable = castSystem.ReactToGroup(observableGroup);
             var runParallel = system.ShouldMutliThread();
                 
-            if (!hasEntityPredicate)
+            if (groupPredicate == null)
             {
                 IDisposable noPredicateSub;
 
@@ -55,7 +54,7 @@ namespace EcsRx.Plugins.ReactiveSystems.Handlers
                 return;
             }
 
-            var groupPredicate = system.Group as IHasPredicate;
+            
             IDisposable predicateSub;
             
             if (isExtendedSystem)

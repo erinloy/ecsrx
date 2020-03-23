@@ -9,9 +9,9 @@ using EcsRx.Groups.Observable;
 using EcsRx.Infrastructure.Dependencies;
 using EcsRx.Infrastructure.Events;
 using EcsRx.Infrastructure.Extensions;
-using EcsRx.Infrastructure.Scheduling;
 using EcsRx.MicroRx.Events;
 using EcsRx.Pools;
+using EcsRx.Scheduling;
 using EcsRx.Threading;
 
 namespace EcsRx.Infrastructure.Modules
@@ -28,18 +28,22 @@ namespace EcsRx.Infrastructure.Modules
             container.Bind<IEntityCollectionFactory, DefaultEntityCollectionFactory>();
             container.Bind<IObservableGroupFactory, DefaultObservableObservableGroupFactory>();
             container.Bind<IEntityCollectionManager, EntityCollectionManager>();
-            container.Bind<IObservableGroupManager>(x => x.ToMethod(y => y.Resolve<IEntityCollectionManager>()));
+            container.Bind<IObservableGroupManager>(x => x.ToBoundType<IEntityCollectionManager>());
             container.Bind<IConventionalSystemHandler, ManualSystemHandler>();
+            container.Bind<IConventionalSystemHandler, BasicSystemHandler>();
             container.Bind<ISystemExecutor, SystemExecutor>();
-            container.Bind<IObservableScheduler, DefaultObservableScheduler>();
-            
-            var componentTypeAssigner = new DefaultComponentTypeAssigner();
-            var allComponents = componentTypeAssigner.GenerateComponentLookups();
-            var componentLookup = new ComponentTypeLookup(allComponents);
-            
-            container.Bind<IComponentTypeAssigner>(new BindingConfiguration{ToInstance = componentTypeAssigner});
-            container.Bind<IComponentTypeLookup>(new BindingConfiguration{ToInstance = componentLookup});           
+            container.Bind<IUpdateScheduler, DefaultUpdateScheduler>();
+            container.Bind<ITimeTracker>(x => x.ToBoundType(typeof(IUpdateScheduler)));
+            container.Bind<IComponentTypeAssigner, DefaultComponentTypeAssigner>();
+            container.Bind<IComponentTypeLookup>(new BindingConfiguration{ToMethod = CreateDefaultTypeLookup});           
             container.Bind<IComponentDatabase, ComponentDatabase>();
+        }
+
+        private static object CreateDefaultTypeLookup(IDependencyContainer container)
+        {
+            var componentTypeAssigner = container.Resolve<IComponentTypeAssigner>();
+            var allComponents = componentTypeAssigner.GenerateComponentLookups();
+            return new ComponentTypeLookup(allComponents);
         }
     }
 }
