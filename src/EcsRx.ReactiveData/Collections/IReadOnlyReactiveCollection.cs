@@ -1,6 +1,6 @@
-﻿using System;
+﻿using EcsRx.MicroRx;
+using System;
 using System.Collections.Generic;
-using System.Reactive;
 
 namespace EcsRx.ReactiveData.Collections
 {

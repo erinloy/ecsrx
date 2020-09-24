@@ -1,9 +1,9 @@
-﻿using System;
+﻿using EcsRx.MicroRx;
+using EcsRx.MicroRx.Subjects;
+using EcsRx.ReactiveData.Platform;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reactive;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
 
 /*
  *    This code was taken from UniRx project by neuecc
@@ -159,7 +159,7 @@ namespace EcsRx.ReactiveData.Dictionaries
         Subject<int> countChanged = null;
         public IObservable<int> ObserveCountChanged()
         {
-            if (isDisposed) return Observable.Empty<int>();
+            if (isDisposed) return StaticPlatformFunctions.PlatformFunctions.Empty<int>();
             return countChanged ?? (countChanged = new Subject<int>());
         }
 
@@ -167,7 +167,7 @@ namespace EcsRx.ReactiveData.Dictionaries
         Subject<Unit> collectionReset = null;
         public IObservable<Unit> ObserveReset()
         {
-            if (isDisposed) return Observable.Empty<Unit>();
+            if (isDisposed) return StaticPlatformFunctions.PlatformFunctions.Empty<Unit>();
             return collectionReset ?? (collectionReset = new Subject<Unit>());
         }
 
@@ -175,7 +175,7 @@ namespace EcsRx.ReactiveData.Dictionaries
         Subject<DictionaryAddEvent<TKey, TValue>> dictionaryAdd = null;
         public IObservable<DictionaryAddEvent<TKey, TValue>> ObserveAdd()
         {
-            if (isDisposed) return Observable.Empty<DictionaryAddEvent<TKey, TValue>>();
+            if (isDisposed) return StaticPlatformFunctions.PlatformFunctions.Empty<DictionaryAddEvent<TKey, TValue>>();
             return dictionaryAdd ?? (dictionaryAdd = new Subject<DictionaryAddEvent<TKey, TValue>>());
         }
 
@@ -183,7 +183,7 @@ namespace EcsRx.ReactiveData.Dictionaries
         Subject<DictionaryRemoveEvent<TKey, TValue>> dictionaryRemove = null;
         public IObservable<DictionaryRemoveEvent<TKey, TValue>> ObserveRemove()
         {
-            if (isDisposed) return Observable.Empty<DictionaryRemoveEvent<TKey, TValue>>();
+            if (isDisposed) return StaticPlatformFunctions.PlatformFunctions.Empty<DictionaryRemoveEvent<TKey, TValue>>();
             return dictionaryRemove ?? (dictionaryRemove = new Subject<DictionaryRemoveEvent<TKey, TValue>>());
         }
 
@@ -191,7 +191,7 @@ namespace EcsRx.ReactiveData.Dictionaries
         Subject<DictionaryReplaceEvent<TKey, TValue>> dictionaryReplace = null;
         public IObservable<DictionaryReplaceEvent<TKey, TValue>> ObserveReplace()
         {
-            if (isDisposed) return Observable.Empty<DictionaryReplaceEvent<TKey, TValue>>();
+            if (isDisposed) return StaticPlatformFunctions.PlatformFunctions.Empty<DictionaryReplaceEvent<TKey, TValue>>();
             return dictionaryReplace ?? (dictionaryReplace = new Subject<DictionaryReplaceEvent<TKey, TValue>>());
         }
 

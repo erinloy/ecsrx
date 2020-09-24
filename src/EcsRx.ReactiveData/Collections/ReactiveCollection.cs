@@ -1,9 +1,9 @@
-﻿using System;
+﻿using EcsRx.MicroRx;
+using EcsRx.MicroRx.Subjects;
+using EcsRx.ReactiveData.Platform;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
 
 /*
  *    This code was taken from UniRx project by neuecc
@@ -93,12 +93,12 @@ namespace EcsRx.ReactiveData.Collections
         Subject<int> countChanged = null;
         public IObservable<int> ObserveCountChanged(bool notifyCurrentCount = false)
         {
-            if (isDisposed) return Observable.Empty<int>();
+            if (isDisposed) return StaticPlatformFunctions.PlatformFunctions.Empty<int>();
 
             var subject = countChanged ?? (countChanged = new Subject<int>());
             if (notifyCurrentCount)
             {
-                return subject.StartWith(Count);
+                return StaticPlatformFunctions.PlatformFunctions.StartWith(subject, Count);
             }
             else
             {
@@ -110,7 +110,7 @@ namespace EcsRx.ReactiveData.Collections
         Subject<Unit> collectionReset = null;
         public IObservable<Unit> ObserveReset()
         {
-            if (isDisposed) return Observable.Empty<Unit>();
+            if (isDisposed) return StaticPlatformFunctions.PlatformFunctions.Empty<Unit>();
             return collectionReset ?? (collectionReset = new Subject<Unit>());
         }
 
@@ -118,7 +118,7 @@ namespace EcsRx.ReactiveData.Collections
         Subject<CollectionAddEvent<T>> collectionAdd = null;
         public IObservable<CollectionAddEvent<T>> ObserveAdd()
         {
-            if (isDisposed) return Observable.Empty<CollectionAddEvent<T>>();
+            if (isDisposed) return StaticPlatformFunctions.PlatformFunctions.Empty<CollectionAddEvent<T>>();
             return collectionAdd ?? (collectionAdd = new Subject<CollectionAddEvent<T>>());
         }
 
@@ -126,7 +126,7 @@ namespace EcsRx.ReactiveData.Collections
         Subject<CollectionMoveEvent<T>> collectionMove = null;
         public IObservable<CollectionMoveEvent<T>> ObserveMove()
         {
-            if (isDisposed) return Observable.Empty<CollectionMoveEvent<T>>();
+            if (isDisposed) return StaticPlatformFunctions.PlatformFunctions.Empty<CollectionMoveEvent<T>>();
             return collectionMove ?? (collectionMove = new Subject<CollectionMoveEvent<T>>());
         }
 
@@ -134,7 +134,7 @@ namespace EcsRx.ReactiveData.Collections
         Subject<CollectionRemoveEvent<T>> collectionRemove = null;
         public IObservable<CollectionRemoveEvent<T>> ObserveRemove()
         {
-            if (isDisposed) return Observable.Empty<CollectionRemoveEvent<T>>();
+            if (isDisposed) return StaticPlatformFunctions.PlatformFunctions.Empty<CollectionRemoveEvent<T>>();
             return collectionRemove ?? (collectionRemove = new Subject<CollectionRemoveEvent<T>>());
         }
 
@@ -142,7 +142,7 @@ namespace EcsRx.ReactiveData.Collections
         Subject<CollectionReplaceEvent<T>> collectionReplace = null;
         public IObservable<CollectionReplaceEvent<T>> ObserveReplace()
         {
-            if (isDisposed) return Observable.Empty<CollectionReplaceEvent<T>>();
+            if (isDisposed) return StaticPlatformFunctions.PlatformFunctions.Empty<CollectionReplaceEvent<T>>();
             return collectionReplace ?? (collectionReplace = new Subject<CollectionReplaceEvent<T>>());
         }
 

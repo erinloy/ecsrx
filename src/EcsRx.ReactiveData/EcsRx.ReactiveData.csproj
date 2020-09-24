@@ -12,8 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Reactive.Core" Version="4.3.1" />
-    <PackageReference Include="System.Reactive.Linq" Version="4.3.1" />
+    <ProjectReference Include="..\EcsRx.MicroRx\EcsRx.MicroRx.csproj" />
   </ItemGroup>
   
 </Project>

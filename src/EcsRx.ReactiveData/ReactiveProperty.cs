@@ -1,7 +1,7 @@
-﻿using System;
+﻿using EcsRx.MicroRx.Disposables;
+using EcsRx.MicroRx.Subjects;
+using System;
 using System.Collections.Generic;
-using System.Reactive.Disposables;
-using System.Reactive.Subjects;
 
 /*
  *    This code was taken from UniRx project by neuecc
