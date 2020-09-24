@@ -2,7 +2,7 @@ using EcsRx.ReactiveData.Platform;
 using System;
 using System.Reactive.Linq;
 
-namespace EcsRx.ReactiveDatak.Platform.Rx
+namespace EcsRx.ReactiveData.Platform.Rx
 {
 	public class PlatformFunctions : IPlatformFunctions
 	{
