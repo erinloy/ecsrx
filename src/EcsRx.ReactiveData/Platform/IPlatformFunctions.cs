@@ -7,5 +7,9 @@ namespace EcsRx.ReactiveData.Platform
         IObservable<T> Empty<T>();
 
         IObservable<T> StartWith<T>(IObservable<T> source, T value);
+
+        IObservable<TResult> Select<TSource, TResult>(IObservable<TSource> source, Func<TSource, TResult> selector);
+        
+        IDisposable Subscribe<T>(IObservable<T> observable, Action<T> onNext);
     }
 }
