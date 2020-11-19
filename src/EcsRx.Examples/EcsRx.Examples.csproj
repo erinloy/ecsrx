@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
@@ -10,8 +10,7 @@
     <PackageReference Include="LazyData.Numerics" Version="3.0.17" />
     <PackageReference Include="Ninject" Version="3.3.4" />
     <PackageReference Include="Persistity.Endpoints.Http" Version="1.1.30" />
-    <PackageReference Include="System.Reactive.Core" Version="4.3.1" />
-	<PackageReference Include="System.Reactive.Linq" Version="4.3.1" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EcsRx.Infrastructure.Ninject\EcsRx.Infrastructure.Ninject.csproj" />
